@@ -42,3 +42,5 @@ STAR:  '*';
 SLASH: '/';
 LP:    '(';
 RP:    ')';
+
+WS  :   [ \t\n\r]+ -> skip ;
