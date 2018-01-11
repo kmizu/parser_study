@@ -1,5 +1,8 @@
 package com.github.kmizu.parser_study;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
+
+import java.io.StringReader;
 import java.util.List;
 
 public class JsonAst {
@@ -142,7 +145,11 @@ public class JsonAst {
 
     public static class Parser {
         public JValue parse(String input) throws Exception {
-            return new JsonParser(JsonLexerCommons.streamOf(input)).jvalue().value;
+            return new JsonParser(
+                    Commons.streamOf(new JsonLexer(
+                            new ANTLRInputStream(new StringReader(input))
+                    ))
+            ).jvalue().value;
         }
     }
 }

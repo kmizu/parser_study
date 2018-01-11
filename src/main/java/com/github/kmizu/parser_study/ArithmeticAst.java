@@ -1,5 +1,9 @@
 package com.github.kmizu.parser_study;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
+
+import java.io.StringReader;
+
 public class ArithmeticAst {
     public interface Visitor<C, R> {
         R visitBinaryExpression(BinaryExpression expression, C context);
@@ -115,7 +119,11 @@ public class ArithmeticAst {
             return expression.value;
         }
         public int evaluate(String input) throws Exception {
-            ArithmeticAst.Expression e = new ArithmeticParser(ArithmeticLexerCommons.streamOf(input)).line().e;
+            ArithmeticAst.Expression e = new ArithmeticParser(
+                    Commons.streamOf(new ArithmeticLexer(
+                            new ANTLRInputStream(new StringReader(input))
+                    ))
+            ).line().e;
             return e.accept(this, null);
         }
     }

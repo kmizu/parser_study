@@ -1,8 +1,11 @@
 package com.github.kmizu.parser_study;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import java.io.StringReader;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +13,11 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JUnit4.class)
 public class IntegerParserTest {
     static int parse(String input) throws Exception {
-        return new IntegerParser(IntegerLexerCommons.streamOf(input)).integer().value;
+        return  new IntegerParser(
+                Commons.streamOf(new IntegerLexer(
+                        new ANTLRInputStream(new StringReader(input))
+                ))
+        ).integer().value;
     }
     @Test
     public void testZero() throws Exception {
