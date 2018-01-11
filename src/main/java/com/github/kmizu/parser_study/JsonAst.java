@@ -27,6 +27,7 @@ public class JsonAst {
             Pair<?, ?> that = (Pair<?, ?>)obj;
             return that._1.equals(_1) && that._2.equals(_2);
         }
+
     }
 
     public static abstract class JValue {
@@ -55,6 +56,17 @@ public class JsonAst {
         public <C, R> R accept(Visitor<C, R> visitor, C context) {
             return visitor.visitJArray(this, context);
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(!(obj instanceof JArray)) return false;
+            JArray that = (JArray)obj;
+            if(elements.size() != that.elements.size()) return false;
+            for(int i = 0; i < elements.size(); i++) {
+                if(!elements.get(i).equals(that.elements.get(i))) return false;
+            }
+            return true;
+        }
     }
 
     public static class JObject extends JValue {
@@ -81,6 +93,13 @@ public class JsonAst {
         @Override  public <C, R> R accept(Visitor<C, R> visitor, C context) {
             return visitor.visitJString(this, context);
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(!(obj instanceof JString)) return false;
+            JString that = (JString)obj;
+            return value.equals(that.value);
+        }
     }
 
     public static class JBoolean extends JValue {
@@ -92,6 +111,13 @@ public class JsonAst {
 
         @Override  public <C, R> R accept(Visitor<C, R> visitor, C context) {
             return visitor.visitJBoolean(this, context);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof JBoolean)) return false;
+            JBoolean that = (JBoolean) obj;
+            return value == that.value;
         }
     }
 
