@@ -114,4 +114,9 @@ public class JsonAst {
         }
     }
 
+    public static class Parser {
+        public JValue parse(String input) throws Exception {
+            return new JsonParser(JsonLexerCommons.streamOf(input)).jvalue().value;
+        }
+    }
 }
