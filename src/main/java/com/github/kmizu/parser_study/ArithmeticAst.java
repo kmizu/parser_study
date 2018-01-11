@@ -11,6 +11,21 @@ public class ArithmeticAst {
         R visitIntegerLiteral(IntegerLiteral expression, C context);
     }
 
+    public enum Operator {
+        ADD("+"), SUBTRACT("-"), MULTIPLY("*"), DIVIDE("/");
+        public final String op;
+        Operator(String op) {
+            this.op = op;
+        }
+    }
+    public enum UnaryOperator {
+        PLUS("+"), MINUS("-");
+        public final String op;
+        UnaryOperator(String op) {
+            this.op = op;
+        }
+    }
+
     public static abstract class Expression {
         public abstract <C, R> R accept(Visitor<C, R> visitor, C context);
     }
