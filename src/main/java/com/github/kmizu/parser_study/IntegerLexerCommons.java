@@ -14,10 +14,4 @@ public class IntegerLexerCommons {
         IntegerLexer lexer = new IntegerLexer(lrStream);
         return new CommonTokenStream(lexer);
     }
-
-    public static CommonTokenStream streamOf(File file) throws IOException {
-        ANTLRInputStream lrStream = new ANTLRInputStream(new FileInputStream(file));
-        IntegerLexer lexer = new IntegerLexer(lrStream);
-        return new CommonTokenStream(lexer);
-    }
 }

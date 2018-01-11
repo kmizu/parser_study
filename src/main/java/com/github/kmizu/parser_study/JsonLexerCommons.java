@@ -14,10 +14,4 @@ public class JsonLexerCommons {
         JsonLexer lexer = new JsonLexer(lrStream);
         return new CommonTokenStream(lexer);
     }
-
-    public static CommonTokenStream streamOf(File file) throws IOException {
-        ANTLRInputStream lrStream = new ANTLRInputStream(new FileInputStream(file));
-        JsonLexer lexer = new JsonLexer(lrStream);
-        return new CommonTokenStream(lexer);
-    }
 }
