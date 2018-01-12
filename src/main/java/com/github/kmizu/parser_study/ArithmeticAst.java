@@ -138,7 +138,7 @@ public class ArithmeticAst {
                     Commons.streamOf(new ArithmeticLexer(
                             new ANTLRInputStream(new StringReader(input))
                     ))
-            ).line().e;
+            ).expression().e;
             return e.accept(this, null);
         }
     }

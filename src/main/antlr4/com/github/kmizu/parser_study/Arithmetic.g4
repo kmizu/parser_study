@@ -1,9 +1,5 @@
 grammar Arithmetic;
 
-line returns [ArithmeticAst.Expression e]
-   : v=expression EOF {$e = $v.e;}
-   ;
-
 expression returns [ArithmeticAst.Expression e]
    : v=additive {$e = $v.e;}
    ;
