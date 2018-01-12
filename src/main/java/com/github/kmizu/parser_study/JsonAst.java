@@ -16,19 +16,19 @@ public class JsonAst {
         R visitJObject(JObject value, C context);
     }
 
-    public static class Pair<A, B> {
+    public static class JPair<A, B> {
         public final A _1;
         public final B _2;
 
-        public Pair(A _1, B _2) {
+        public JPair(A _1, B _2) {
             this._1 = _1;
             this._2 = _2;
         }
 
         @Override
         public boolean equals(Object obj) {
-            if(!(obj instanceof Pair<?, ?>)) return false;
-            Pair<?, ?> that = (Pair<?, ?>)obj;
+            if(!(obj instanceof JPair<?, ?>)) return false;
+            JPair<?, ?> that = (JPair<?, ?>)obj;
             return that._1.equals(_1) && that._2.equals(_2);
         }
 
@@ -74,9 +74,9 @@ public class JsonAst {
     }
 
     public static class JObject extends JValue {
-        public final List<? extends Pair<String, JValue>> elements;
+        public final List<? extends JPair<String, JValue>> elements;
 
-        public JObject(List<? extends Pair<String, JValue>> elements) {
+        public JObject(List<? extends JPair<String, JValue>> elements) {
             this.elements = elements;
         }
 
@@ -155,25 +155,23 @@ public class JsonAst {
         }
     }
 
-    public static class Parser {
-        public JValue parse(String input) throws Exception {
-            return new JsonParser(
-                    Commons.streamOf(new JsonLexer(
-                            new ANTLRInputStream(new StringReader(input))
-                    ))
-            ).jvalue().value;
-        }
+    public static JValue parse(String input) throws Exception {
+        return new JsonParser(
+                Commons.streamOf(new JsonLexer(
+                        new ANTLRInputStream(new StringReader(input))
+                ))
+        ).jvalue().value;
     }
 
-    public static <A, B> Pair<A, B> p(A a, B b) {
-        return new Pair<>(a, b);
+    public static <A, B> JPair<A, B> p(A a, B b) {
+        return new JPair<>(a, b);
     }
 
     public static JArray jarray(JValue... elements) {
         return new JArray(Arrays.asList(elements));
     }
 
-    public static JObject jobject(Pair<String, JValue>... fields) {
+    public static JObject jobject(JPair<String, JValue>... fields) {
         return new JObject(Arrays.asList(fields));
     }
 

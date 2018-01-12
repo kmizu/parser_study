@@ -1,6 +1,10 @@
 grammar Json;
 
-jvalue returns [JsonAst.JValue value]
+@header {
+  import static com.github.kmizu.parser_study.JsonAst.*;
+}
+
+jvalue returns [JValue value]
    : v1=jstring  {$value = $v1.value;}
    | v2=jnumber  {$value = $v2.value;}
    | v3=jobject  {$value = $v3.value;}
@@ -9,18 +13,18 @@ jvalue returns [JsonAst.JValue value]
    | v6=jnull    {$value = $v6.value;}
    ;
 
-jarray returns [JsonAst.JArray value]
+jarray returns [JArray value]
    @init {
-     List<JsonAst.JValue> elements = new ArrayList<JsonAst.JValue>();
+     List<JValue> elements = new ArrayList<JsonAst.JValue>();
    }
    : '['
         (v=jvalue {elements.add($v.value);} (',' v=jvalue {elements.add($v.value);})*)?
      ']' {$value = new JsonAst.JArray(elements);}
    ;
 
-jobject returns [JsonAst.JObject value]
+jobject returns [JObject value]
    @init {
-     List<JsonAst.Pair<String, JsonAst.JValue>> fields = new ArrayList<JsonAst.Pair<String, JsonAst.JValue>>();
+     List<JPair<String, JValue>> fields = new ArrayList<JPair<String, JValue>>();
    }
    : '{'
         (
@@ -29,23 +33,23 @@ jobject returns [JsonAst.JObject value]
      '}' {$value = new JsonAst.JObject(fields);}
    ;
 
-pair returns [JsonAst.Pair value]
-  : k=jstring ':' v=jvalue {$value = new JsonAst.Pair<String, JsonAst.JValue>($k.value.value, $v.value);}
+pair returns [JPair value]
+  : k=jstring ':' v=jvalue {$value = new JPair<String, JValue>($k.value.value, $v.value);}
   ;
 
-jstring returns [JsonAst.JString value]
-   : s=STRING {$value = new JsonAst.JString($s.getText().substring(1, $s.getText().length() - 1));}
+jstring returns [JString value]
+   : s=STRING {$value = new JString($s.getText().substring(1, $s.getText().length() - 1));}
    ;
 
-jnull returns [JsonAst.JNull value]
-   : v=NULL {$value = JsonAst.JNull.instance;}
+jnull returns [JNull value]
+   : v=NULL {$value = JNull.instance;}
    ;
 
-jnumber returns [JsonAst.JNumber value]
-   : n=NUMBER {$value = new JsonAst.JNumber(Integer.parseInt($n.getText()));}
+jnumber returns [JNumber value]
+   : n=NUMBER {$value = new JNumber(Integer.parseInt($n.getText()));}
    ;
 
-jboolean returns [JsonAst.JBoolean value]
+jboolean returns [JBoolean value]
    : TRUE  {$value = new JsonAst.JBoolean(true);}
    | FALSE {$value = new JsonAst.JBoolean(false);}
    ;

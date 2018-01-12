@@ -14,11 +14,7 @@ import static com.github.kmizu.parser_study.JsonAst.*;
 @RunWith(JUnit4.class)
 public class JsonParserTest {
     static JsonAst.JValue parse(String input) throws Exception {
-        return  new JsonParser(
-                Commons.streamOf(new JsonLexer(
-                        new ANTLRInputStream(new StringReader(input))
-                ))
-        ).jvalue().value;
+        return JsonAst.parse(input);
     }
 
     @Test
