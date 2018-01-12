@@ -42,7 +42,7 @@ jnull returns [JsonAst.JNull value]
    ;
 
 jnumber returns [JsonAst.JNumber value]
-   : n=NUMBER {$value = new JsonAst.JNumber(Double.parseDouble($n.getText()));}
+   : n=NUMBER {$value = new JsonAst.JNumber(Integer.parseInt($n.getText()));}
    ;
 
 jboolean returns [JsonAst.JBoolean value]
@@ -51,7 +51,7 @@ jboolean returns [JsonAst.JBoolean value]
    ;
 
 NUMBER
-   : ('-')? ('0' | DIGIT19 DIGIT*) ('.' DIGIT*)? ([eE] ('+'|'-')? DIGIT+)
+   : ('-')? ('0' | DIGIT19 DIGIT*)
    ;
 
 NULL

@@ -3,6 +3,7 @@ package com.github.kmizu.parser_study;
 import org.antlr.v4.runtime.ANTLRInputStream;
 
 import java.io.StringReader;
+import java.util.Arrays;
 import java.util.List;
 
 public class JsonAst {
@@ -125,9 +126,9 @@ public class JsonAst {
     }
 
     public static class JNumber extends JValue {
-        public final double value;
+        public final int value;
 
-        public JNumber(double value) {
+        public JNumber(int value) {
             this.value = value;
         }
 
@@ -152,4 +153,32 @@ public class JsonAst {
             ).jvalue().value;
         }
     }
+
+    public static <A, B> Pair<A, B> p(A a, B b) {
+        return new Pair<>(a, b);
+    }
+
+    public static JArray jarray(JValue... elements) {
+        return new JArray(Arrays.asList(elements));
+    }
+
+    public static JObject jobject(Pair<String, JValue>... fields) {
+        return new JObject(Arrays.asList(fields));
+    }
+
+    public static JNumber jnumber(int value) {
+        return new JNumber(value);
+    }
+
+    public static JString jstring(String value) {
+        return new JString(value);
+    }
+
+    public static JBoolean jboolean(boolean value) {
+        return new JBoolean(value);
+    }
+
+    public static JNull jnull = JNull.instance;
+
+
 }
