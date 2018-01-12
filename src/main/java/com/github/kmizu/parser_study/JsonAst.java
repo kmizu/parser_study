@@ -84,6 +84,17 @@ public class JsonAst {
         public <C, R> R accept(Visitor<C, R> visitor, C context) {
             return visitor.visitJObject(this, context);
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(!(obj instanceof JObject)) return false;
+            JObject that = (JObject)obj;
+            if(elements.size() != that.elements.size()) return false;
+            for(int i = 0; i < elements.size(); i++) {
+                if(!elements.get(i).equals(that.elements.get(i))) return false;
+            }
+            return true;
+        }
     }
 
 
