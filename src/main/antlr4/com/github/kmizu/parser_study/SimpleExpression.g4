@@ -13,13 +13,9 @@ expression returns [SimpleExpressionAst.Expression e]
    ;
 
 number returns [SimpleExpressionAst.NumberExpression value]
-   : n=NUMBER {$value = new SimpleExpressionAst.NumberExpression(Integer.parseInt($n.getText()));}
+   : n=NUMBER {$value = new NumberExpression(Integer.parseInt($n.getText()));}
    ;
 
 NUMBER: ('0' | [1-9] [0-9]*); // no leading zeros
-PLUS:  '+';
-MINUS: '-';
-STAR:  '*';
-SLASH: '/';
 
 WS  :   [ \t\n\r]+ -> skip ;
