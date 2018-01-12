@@ -7,7 +7,6 @@ import java.io.StringReader;
 public class ArithmeticAst {
     public interface Visitor<C, R> {
         R visitBinaryExpression(BinaryExpression expression, C context);
-        R visitUnaryExpression(UnaryExpression expression, C context);
         R visitIntegerLiteral(IntegerLiteral expression, C context);
     }
 
@@ -18,39 +17,9 @@ public class ArithmeticAst {
             this.op = op;
         }
     }
-    public enum UnaryOperator {
-        PLUS("+"), MINUS("-");
-        public final String op;
-        UnaryOperator(String op) {
-            this.op = op;
-        }
-    }
 
     public static abstract class Expression {
         public abstract <C, R> R accept(Visitor<C, R> visitor, C context);
-    }
-
-    public static class UnaryExpression extends Expression {
-        public final UnaryOperator operator;
-        public final Expression body;
-
-        public UnaryExpression(UnaryOperator operator, Expression body) {
-            this.operator = operator;
-            this.body = body;
-        }
-
-        @Override
-        public <C, R> R accept(Visitor<C, R> visitor, C context) {
-            return visitor.visitUnaryExpression(this, context);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if(!(obj instanceof UnaryExpression)) return false;
-            UnaryExpression e = (UnaryExpression)obj;
-            return    this.operator == e.operator
-                   &&  this.body.equals(e.body);
-        }
     }
 
     public static class BinaryExpression  extends Expression {
@@ -112,18 +81,6 @@ public class ArithmeticAst {
                 case DIVIDE:
                     return   expression.lhs.accept(this, null)
                             / expression.rhs.accept(this, null);
-                default:
-                    throw new RuntimeException("cannot reach here");
-            }
-        }
-
-        @Override
-        public Integer visitUnaryExpression(UnaryExpression expression, Void context) {
-            switch (expression.operator) {
-                case PLUS:
-                    return expression.body.accept(this, null);
-                case MINUS:
-                    return -expression.body.accept(this, null);
                 default:
                     throw new RuntimeException("cannot reach here");
             }
