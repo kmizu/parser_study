@@ -1,7 +1,12 @@
 grammar Integer;
 
 integer returns [int value]
-   : n=INT {$value = Integer.parseInt($n.getText());}
+   : n=INTEGER {$value = Integer.parseInt($n.getText());}
    ;
 
-INT : ('0' | [1-9] [0-9]*) ; // no leading zeros
+INTEGER : Zero | DigitFirst (DigitRest)*;
+fragment Zero : '0';
+fragment DigitFirst : '1' | '2' | '3'| '4' | '5' | '6'
+           | '7' | '8' | '9';
+fragment DigitRest: '0' | '1' | '2' | '3'| '4' | '5' | '6'
+           | '7' | '8' | '9';
