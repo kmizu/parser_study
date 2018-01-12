@@ -104,8 +104,6 @@ COLON
 
 WS  :   [ \t\n\r]+ -> skip ;
 
-fragment ESC : '\\' (["\\/bfnrt] | UNICODE) ;
-fragment UNICODE : 'u' HEX HEX HEX HEX;
-fragment HEX : [0-9a-fA-F] ;
+fragment ESC : '\\' (["\\/bfnrt]);
 fragment DIGIT: [0-9];
 fragment DIGIT19: [1-9];
