@@ -22,27 +22,20 @@ public class IntegerParserTest {
     @Test
     public void testZero() throws Exception {
         assertEquals(0, parse("0"));
-        assertEquals(0, parse("+0"));
-        assertEquals(0, parse("-0"));
     }
 
     @Test
     public void testOne() throws Exception {
         assertEquals(1, parse("1"));
-        assertEquals(1, parse("+1"));
-        assertEquals(-1, parse("-1"));
     }
 
     @Test
     public void testTwo() throws Exception {
         assertEquals(2, parse("2"));
-        assertEquals(2, parse("+2"));
-        assertEquals(-2, parse("-2"));
     }
 
     @Test
     public void testMany() throws Exception {
         assertEquals(Integer.MAX_VALUE, parse("2147483647"));
-        assertEquals(Integer.MIN_VALUE, parse("-2147483648"));
     }
 }

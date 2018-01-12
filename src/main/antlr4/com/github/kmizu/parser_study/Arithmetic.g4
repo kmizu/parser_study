@@ -15,14 +15,8 @@ additive returns [ArithmeticAst.Expression e]
     ;
 
 multitive returns [ArithmeticAst.Expression e]
-    : l=multitive op='*' r=unary {$e = new ArithmeticAst.BinaryExpression(ArithmeticAst.Operator.MULTIPLY, $l.e, $r.e);}
-    | l=multitive op='/' r=unary {$e = new ArithmeticAst.BinaryExpression(ArithmeticAst.Operator.DIVIDE, $l.e, $r.e);}
-    | v=unary {$e = $v.e;}
-    ;
-
-unary returns [ArithmeticAst.Expression e]
-    : '+' v=primary {$e = new ArithmeticAst.UnaryExpression(ArithmeticAst.UnaryOperator.PLUS, $v.e);}
-    | '-' v=primary {$e = new ArithmeticAst.UnaryExpression(ArithmeticAst.UnaryOperator.MINUS, $v.e);}
+    : l=multitive op='*' r=primary {$e = new ArithmeticAst.BinaryExpression(ArithmeticAst.Operator.MULTIPLY, $l.e, $r.e);}
+    | l=multitive op='/' r=primary {$e = new ArithmeticAst.BinaryExpression(ArithmeticAst.Operator.DIVIDE, $l.e, $r.e);}
     | v=primary {$e = $v.e;}
     ;
 
