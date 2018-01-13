@@ -33,7 +33,7 @@ jobject returns [JObject value]
      '}' {$value = new JsonAst.JObject(fields);}
    ;
 
-pair returns [JPair value]
+pair returns [JPair<String, JValue> value]
   : k=jstring ':' v=jvalue {$value = new JPair<String, JValue>($k.value.value, $v.value);}
   ;
 
@@ -72,38 +72,6 @@ FALSE
 
 STRING
    : '"' (ESC | ~ ["\\])* '"'
-   ;
-
-LBRACKET
-   : '['
-   ;
-
-COMMA
-   : ','
-   ;
-
-RBRACKET
-   : ']'
-   ;
-
-LBRACE
-   : '{'
-   ;
-
-RBRACE
-   : '}'
-   ;
-
-LP
-   : '('
-   ;
-
-RP
-   :')'
-   ;
-
-COLON
-   : ':'
    ;
 
 WS  :   [ \t\n\r]+ -> skip ;

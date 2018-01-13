@@ -1,0 +1,17 @@
+expression = additive;
+additive = multitive
+           {'+' multitive | '-' multitive};
+multitive = primary
+           {'*' primary | '/' primary};
+primary = '(' expression ')' | integer;
+
+-> 1
+-> 1+2
+-> 1+2-3
+-> 1+2*3 = 1+(2*3)
+-> (1+2)*3 = 3*3
+-> (1+2)*(3/3)
+
+1+2*3+4*6
+
+multitive+multitive+multitive

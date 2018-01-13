@@ -15,7 +15,7 @@ public class SimpleExpressionAst {
     }
 
     public enum Operator {
-        ADD("+"), SUBTRACT("+"), MULTIPLY("*"), DIVIDE("/");
+        ADD("+"), SUBTRACT("-"), MULTIPLY("*"), DIVIDE("/");
         public final String op;
         Operator(String op) {
             this.op = op;
